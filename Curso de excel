@@ -1,0 +1,396 @@
+index.html
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende Microsoft Office Fácilmente</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Aprende Microsoft Office</h1>
+        <p>Tutoriales paso a paso para Excel, Word y PowerPoint</p>
+    </header>
+
+    <nav class="program-tabs">
+        <button class="tab active" data-programa="excel">Excel</button>
+        <button class="tab" data-programa="word">Word</button>
+        <button class="tab" data-programa="powerpoint">PowerPoint</button>
+    </nav>
+
+    <main class="container">
+        <section id="lista-tutoriales">
+            <!-- La lista de tutoriales se cargará aquí con JavaScript -->
+        </section>
+        <section id="detalle-tutorial">
+            <!-- El detalle del tutorial se cargará aquí con JavaScript -->
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Aprende Office | Creado con ❤️ por un asistente de IA</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+style.css
+
+/* --- Estilos Generales --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --background-color: #f4f7f6;
+    --text-color: #333;
+    --light-gray: #ecf0f1;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* --- Header y Footer --- */
+header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 1.1em;
+    opacity: 0.8;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: var(--light-gray);
+    color: #777;
+}
+
+/* --- Navegación por Pestañas --- */
+.program-tabs {
+    display: flex;
+    justify-content: center;
+    background-color: var(--white);
+    border-bottom: 2px solid var(--light-gray);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+}
+
+.tab:hover {
+    color: var(--secondary-color);
+}
+
+.tab.active {
+    color: var(--secondary-color);
+    border-bottom-color: var(--secondary-color);
+}
+
+/* --- Lista de Tutoriales --- */
+#lista-tutoriales {
+    flex: 1;
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 20px;
+    height: fit-content;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.tutorial-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--light-gray);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.tutorial-item:last-child {
+    border-bottom: none;
+}
+
+.tutorial-item:hover {
+    background-color: #f8f9fa;
+}
+
+.tutorial-item h3 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+/* --- Detalle del Tutorial --- */
+#detalle-tutorial {
+    flex: 2;
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+#detalle-tutorial h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.pasos-lista {
+    list-style: none;
+    padding-left: 0;
+}
+
+.pasos-lista li {
+    background-color: var(--light-gray);
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 50px;
+}
+
+.pasos-lista li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--secondary-color);
+    color: var(--white);
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+    }
+}
+
+script.js
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- BASE DE DATOS DE TUTORIALES ---
+    const tutorialesOffice = {
+        excel: [
+            {
+                id: 'excel-1',
+                titulo: 'Cómo usar la función SUMA',
+                pasos: [
+                    'Haz clic en la celda donde quieres que aparezca el resultado.',
+                    'Escribe =SUMA(' para iniciar la fórmula.',
+                    'Selecciona con el ratón el rango de celdas que quieres sumar (ej: A1:A5).',
+                    'Cierra el paréntesis ) y presiona Enter.'
+                ],
+                videoId: 'cTnYAClP3WU' // ID del video de YouTube
+            },
+            {
+                id: 'excel-2',
+                titulo: 'Crear una tabla dinámica',
+                pasos: [
+                    'Asegúrate de que tus datos tienen encabezados.',
+                    'Selecciona toda tu tabla de datos.',
+                    'Ve a la pestaña "Insertar" y haz clic en "Tabla Dinámica".',
+                    'En el nuevo panel, arrastra los campos a las áreas de Filtros, Columnas, Filas y Valores.'
+                ],
+                videoId: '0P5wjVJ8xEs'
+            },
+            {
+                id: 'excel-3',
+                titulo: 'Usar BUSCARV (VLOOKUP)',
+                pasos: [
+                    'Haz clic en la celda donde quieres el resultado.',
+                    'Escribe =BUSCARV(.',
+                    'Introduce el valor que buscas (ej: una celda con un ID).',
+                    'Introduce el rango de la tabla donde buscar (la primera columna debe tener los valores de búsqueda).',
+                    'Introduce el número de columna de la que quieres obtener el dato.',
+                    'Escribe FALSO para una búsqueda exacta y cierra el paréntesis.'
+                ],
+                videoId: '9xwWdM-3pYQ'
+            }
+        ],
+        word: [
+            {
+                id: 'word-1',
+                titulo: 'Crear y formatear tablas',
+                pasos: [
+                    'Ve a la pestaña "Insertar".',
+                    'Haz clic en "Tabla" y selecciona el número de filas y columnas con el ratón.',
+                    'Para dar formato, usa la pestaña "Diseño de tabla" que aparece al seleccionar la tabla.',
+                    'Puedes cambiar colores, bordes y aplicar estilos predefinidos.'
+                ],
+                videoId: 'L2c8d8p2p3A'
+            },
+            {
+                id: 'word-2',
+                titulo: 'Combinar correspondencia',
+                pasos: [
+                    'Ve a la pestaña "Correspondencia".',
+                    'Haz clic en "Iniciar combinación de correspondencia" y selecciona "Cartas".',
+                    'Haz clic en "Seleccionar destinatarios" para usar una lista existente (un archivo de Excel).',
+                    'Usa "Insertar campo de combinación" para añadir datos del archivo a tu documento.',
+                    'Finaliza con "Finalizar y combinar" para crear las cartas personalizadas.'
+                ],
+                videoId: 'H3_t5c_3s2M'
+            }
+        ],
+        powerpoint: [
+            {
+                id: 'ppt-1',
+                titulo: 'Añadir transiciones y animaciones',
+                pasos: [
+                    'Selecciona la diapositiva a la que quieres añadir una transición.',
+                    'Ve a la pestaña "Transiciones" y elige una de la galería.',
+                    'Para animar un objeto (texto, imagen), selecciónalo.',
+                    'Ve a la pestaña "Animaciones" y elige un efecto (Entrada, Énfasis, Salida).'
+                ],
+                videoId: 'qR3iV2f0o9I'
+            },
+            {
+                id: 'ppt-2',
+                titulo: 'Usar la Diapositiva Maestra',
+                pasos: [
+                    'Ve a la pestaña "Vista" y haz clic en "Diapositiva Maestra".',
+                    'Modifica la diapositiva maestra principal para cambiar fuentes, colores o el logo en todas las diapositivas.',
+                    'Crea nuevos diseños personalizados para diferentes tipos de contenido.',
+                    'Cierra la vista de maestra para aplicar los cambios a tu presentación.'
+                ],
+                videoId: 'YkM2X5n5o9E'
+            }
+        ]
+    };
+
+    // --- REFERENCIAS A ELEMENTOS DEL DOM ---
+    const tabs = document.querySelectorAll('.tab');
+    const listaTutorialesEl = document.getElementById('lista-tutoriales');
+    const detalleTutorialEl = document.getElementById('detalle-tutorial');
+
+    let programaActual = 'excel';
+
+    // --- FUNCIONES DE RENDERIZADO ---
+    function renderizarLista(programa) {
+        listaTutorialesEl.innerHTML = ''; // Limpiar lista anterior
+        const tutoriales = tutorialesOffice[programa];
+
+        tutoriales.forEach(tutorial => {
+            const itemEl = document.createElement('div');
+            itemEl.classList.add('tutorial-item');
+            itemEl.innerHTML = `<h3>${tutorial.titulo}</h3>`;
+            itemEl.addEventListener('click', () => mostrarDetalle(tutorial.id));
+            listaTutorialesEl.appendChild(itemEl);
+        });
+    }
+
+    function mostrarDetalle(tutorialId) {
+        let tutorialEncontrado = null;
+        for (const programa in tutorialesOffice) {
+            tutorialEncontrado = tutorialesOffice[programa].find(t => t.id === tutorialId);
+            if (tutorialEncontrado) break;
+        }
+
+        if (!tutorialEncontrado) return;
+
+        let pasosHTML = tutorialEncontrado.pasos.map(paso => `<li>${paso}</li>`).join('');
+
+        detalleTutorialEl.innerHTML = `
+            <h2>${tutorialEncontrado.titulo}</h2>
+            <h3>Pasos a seguir:</h3>
+            <ol class="pasos-lista">
+                ${pasosHTML}
+            </ol>
+            <h3>Video Explicativo:</h3>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/${tutorialEncontrado.videoId}" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        `;
+    }
+
+    // --- EVENT LISTENERS ---
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Quitar clase active de todas las pestañas
+            tabs.forEach(t => t.classList.remove('active'));
+            // Añadir clase active a la pestaña clicada
+            tab.classList.add('active');
+
+            programaActual = tab.dataset.programa;
+            renderizarLista(programaActual);
+            // Mostrar el primer tutorial de la nueva lista por defecto
+            const primerTutorial = tutorialesOffice[programaActual][0];
+            if (primerTutorial) {
+                mostrarDetalle(primerTutorial.id);
+            }
+        });
+    });
+
+    // --- CARGA INICIAL ---
+    renderizarLista(programaActual);
+    mostrarDetalle(tutorialesOffice[programaActual][0].id);
+
+});
